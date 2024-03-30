@@ -4,7 +4,9 @@
 #include "create_file.h"
 
 void SetPixel(int x, int y, char map[X_PIXEL][Y_PIXEL]){
-    map[y][x] = '+';
+    if (0 <= x && X_PIXEL > x && 0 <= y && Y_PIXEL > y){
+        map[y][x] = '+';
+    }
 }
 
 // function for line generation

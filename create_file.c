@@ -21,5 +21,5 @@ int create_ppm(char map[X_PIXEL][Y_PIXEL]){
         }
         fclose (p_file);
     }
-    return 187;
+    return 0;
 }
