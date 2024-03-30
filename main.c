@@ -29,7 +29,7 @@ int AskNumberInput(){
     return number;
 }
 
-void DivideCircle(int xc, int yc, int radius, int n, char map [X_PIXEL][Y_PIXEL]) {
+void DrawLinesOnCircle(int xc, int yc, int radius, int n, char map [X_PIXEL][Y_PIXEL]) {
     double angleIncrement = 2 * M_PI / n;
     double angle = 0.0;
 
@@ -39,10 +39,10 @@ void DivideCircle(int xc, int yc, int radius, int n, char map [X_PIXEL][Y_PIXEL]
         int y = yc + (int)(radius * sin(angle));
 
         // Print the coordinates of the point
-        printf("Point %d: (%d, %d)\n", i + 1, x, y);
+        //printf("Point %d: (%d, %d)\n", i + 1, x, y);
         if (1000 >= x && 0 <= x && 1000 >= y && 0 <= y){
-        DrawLine(0, Y_PIXEL, x, y, map);
-        DrawLine(x,y,X_PIXEL,0, map);
+            DrawLine(0, Y_PIXEL, x, y, map);
+            DrawLine(x,y,X_PIXEL,0, map);
         }
         // Increment the angle for the next division
         angle += angleIncrement;
@@ -52,12 +52,20 @@ void DivideCircle(int xc, int yc, int radius, int n, char map [X_PIXEL][Y_PIXEL]
 int DrawOneQuaterCircle(char map[X_PIXEL][Y_PIXEL]){
     int number = (AskNumberInput()*4)+8;
     CircleBresenham(0, Y_PIXEL-1, X_PIXEL-1, map);
-    DivideCircle(0, Y_PIXEL-1, X_PIXEL-1, number, map);
+    DrawLinesOnCircle(0, Y_PIXEL-1, X_PIXEL-1, number, map);
+}
+
+void DrawBorder(char map[X_PIXEL][Y_PIXEL]){
+    DrawLine(0,0,X_PIXEL-1,0, map);
+    DrawLine(X_PIXEL-1,0,X_PIXEL-1,Y_PIXEL-1, map);
+    DrawLine(X_PIXEL-1,Y_PIXEL-1,0,Y_PIXEL-1,map);
+    DrawLine(0,Y_PIXEL-1,0,0,map);
 }
 
 int main() {
-    char map [X_PIXEL][Y_PIXEL];
+    char map [X_PIXEL][Y_PIXEL] = {0};
     //DrawTutorial(map);
+    DrawBorder(map);
     DrawOneQuaterCircle(map);
     //DrawLine(0,0,X_PIXEL,Y_PIXEL, map);
     /*
@@ -65,7 +73,7 @@ int main() {
         for(int ii = 0; ii<Y_PIXEL-1; ii++)
             printf("%c", map[i][ii]);
     }
-     */
+    */
     create_ppm(map);
     return 0;
 }
