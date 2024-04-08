@@ -22,9 +22,15 @@ int DrawTutorial(char map[X_PIXEL][Y_PIXEL]){
 
 int AskNumberInput(){
     int number = 0;
-    printf("give a variable n\n");
-    scanf("%d", &number);
-    printf("%d\n", number);
+    do{
+        printf("give a number 0<x>50.000.000 n\n");
+        scanf("%d", &number);
+        printf("%d\n", number);
+    }
+    while (0 > number || 50000000 < number);
+    if (number > 1000000){
+        printf("This might take a while (50.000.000 = 5min)");
+    }
     number = number-1;
     return number;
 }
